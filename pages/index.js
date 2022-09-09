@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import styled from "styled-components";
 import FoodMenu from "../components/FoodMenu/FoodMenu";
+import HomePage from "../components/HomePage/HomePage";
 
 export const ThemeContext = createContext(null);
 
@@ -14,7 +15,8 @@ export default function Home() {
   return (
     <>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <FoodMenu theme={theme} toggleTheme={toggleTheme} />
+      <HomePage theme={theme} toggleTheme={toggleTheme} />
+
       </ThemeContext.Provider>
     </>
   );

@@ -8,6 +8,8 @@ export const GlobalStyles = createGlobalStyle`
 
     html {
       font-size: calc(60% + 0.8vmin);
+      margin: 0;
+        padding: 0;
     }
 
     body {

@@ -2,10 +2,10 @@ import { menuItems } from "../../data/menu-data";
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import ItemModal from "../ItemModal/ItemModal";
 
 const ContainerLight = styled.div`
   border: 2px solid black;
-  color: black;
   background-color: white;
 `;
 
@@ -15,13 +15,27 @@ const ContainerDark = styled.div`
   background-color: black;
 `;
 
+const FoodItemLight = styled.p`
+  color: black;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const FoodItemDark = styled(FoodItemLight)`
+  color: white;
+`;
+
 function FoodMenu({ theme, toggleTheme }) {
   const [nutritionInfo, setNutritionInfo] = useState();
   const [ingredientsInfo, setIngredientsInfo] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function getFoodInfo(e) {
     getNutrition(e.target.id);
     getIngredients(e.target.id);
+    setIsModalOpen(true);
   }
 
   function getNutrition(id) {
@@ -53,28 +67,32 @@ function FoodMenu({ theme, toggleTheme }) {
         <ContainerLight>
           {Object.values(menuItems).map((item, key) => {
             return (
-              <p onClick={getFoodInfo} key={key} id={item.id}>
+              <FoodItemLight onClick={getFoodInfo} key={key} id={item.id}>
                 {item.title}
-              </p>
+              </FoodItemLight>
             );
           })}
-          <button type="button" onClick={toggleTheme}>
-            Change Theme
-          </button>
         </ContainerLight>
       ) : (
         <ContainerDark>
           {Object.values(menuItems).map((item, key) => {
             return (
-              <p onClick={getFoodInfo} key={key} id={item.id}>
+              <FoodItemDark onClick={getFoodInfo} key={key} id={item.id}>
                 {item.title}
-              </p>
+              </FoodItemDark>
             );
           })}
-          <button type="button" onClick={toggleTheme}>
-            Change Theme
-          </button>
         </ContainerDark>
+      )}
+      {isModalOpen && (
+        <ItemModal
+          nutritionInfo={nutritionInfo}
+          ingredientsInfo={ingredientsInfo}
+          setIsModalOpen={setIsModalOpen}
+          setNutritionInfo={setNutritionInfo}
+          setIngredientsInfo={setIngredientsInfo}
+          theme={theme}
+        />
       )}
     </>
   );
