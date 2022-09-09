@@ -1,8 +1,5 @@
 export const menuItems = {
-  goatsCheese: {
-    id: 644953,
-    title: "Goat Cheese Pesto Pizza",
-  },
+  goatsCheese: { id: 644953, title: "Goat Cheese Pesto Pizza" },
   BLT: {
     id: 680975,
     title: "BLT Pizza",
