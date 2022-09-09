@@ -5,12 +5,10 @@ import axios from "axios";
 import ItemModal from "../ItemModal/ItemModal";
 
 const ContainerLight = styled.div`
-  border: 2px solid black;
   background-color: white;
 `;
 
 const ContainerDark = styled.div`
-  border: 2px solid white;
   color: white;
   background-color: black;
 `;

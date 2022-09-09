@@ -15,8 +15,7 @@ export default function Home() {
   return (
     <>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <HomePage theme={theme} toggleTheme={toggleTheme} />
-
+        <HomePage theme={theme} toggleTheme={toggleTheme} />
       </ThemeContext.Provider>
     </>
   );
