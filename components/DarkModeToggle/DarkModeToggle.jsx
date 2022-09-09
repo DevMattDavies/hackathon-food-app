@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const ToggleStyle = styled.div`
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   gap: 1rem;
 `;
@@ -10,7 +11,7 @@ const ToggleStyle = styled.div`
 function DarkModeToggle({ theme, toggleTheme }) {
   return (
     <ToggleStyle>
-      <label> {theme === "light" ? "Light Mode" : "Dark Mode"} </label>
+      <label> {theme === "light" ? "Light" : "Dark"} </label>
       <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
     </ToggleStyle>
   );

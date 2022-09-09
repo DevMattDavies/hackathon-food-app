@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import FoodMenu from "../components/FoodMenu/FoodMenu";
 import HomePage from "../components/HomePage/HomePage";
@@ -11,6 +11,14 @@ export default function Home() {
   const toggleTheme = () => {
     setTheme((currentTheme) => (currentTheme === "light" ? "dark" : "light"));
   };
+
+  useEffect(() => {
+    if (theme === "light") {
+      document.body.style.backgroundColor = "var(--red)";
+    } else {
+      document.body.style.backgroundColor = "var(--black)";
+    }
+  }, [theme]);
 
   return (
     <>

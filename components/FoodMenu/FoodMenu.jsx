@@ -4,17 +4,42 @@ import styled from "styled-components";
 import axios from "axios";
 import ItemModal from "../ItemModal/ItemModal";
 
-const ContainerLight = styled.div`
-  background-color: white;
+const pizzaImages = [
+  "/assets/pizza1.png",
+  "/assets/pizza2.png",
+  "/assets/pizza3.png",
+  "/assets/pizza4.png",
+  "/assets/pizza5.png",
+  "/assets/pizza6.png",
+  "/assets/pizza7.png",
+  "/assets/pizza8.png",
+];
+
+const ImageStyle = styled.img`
+  width: 150px;
+  height: 150px;
 `;
 
-const ContainerDark = styled.div`
+const ContainerLight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ContainerDark = styled(ContainerLight)`
   color: white;
-  background-color: black;
+`;
+
+const FoodItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const FoodItemLight = styled.p`
-  color: black;
+  color: white;
+  font-size: 2rem;
 
   &:hover {
     cursor: pointer;
@@ -65,9 +90,13 @@ function FoodMenu({ theme, toggleTheme }) {
         <ContainerLight>
           {Object.values(menuItems).map((item, key) => {
             return (
-              <FoodItemLight onClick={getFoodInfo} key={key} id={item.id}>
-                {item.title}
-              </FoodItemLight>
+              <FoodItemContainer onClick={getFoodInfo} key={key} id={item.id}>
+                <ImageStyle
+                  src={pizzaImages[key]}
+                  alt="pizza image"
+                ></ImageStyle>
+                <FoodItemLight>{item.title}</FoodItemLight>
+              </FoodItemContainer>
             );
           })}
         </ContainerLight>
@@ -75,9 +104,13 @@ function FoodMenu({ theme, toggleTheme }) {
         <ContainerDark>
           {Object.values(menuItems).map((item, key) => {
             return (
-              <FoodItemDark onClick={getFoodInfo} key={key} id={item.id}>
-                {item.title}
-              </FoodItemDark>
+              <FoodItemContainer onClick={getFoodInfo} key={key} id={item.id}>
+                <ImageStyle
+                  src={pizzaImages[key]}
+                  alt="pizza image"
+                ></ImageStyle>
+                <FoodItemLight>{item.title}</FoodItemLight>
+              </FoodItemContainer>
             );
           })}
         </ContainerDark>

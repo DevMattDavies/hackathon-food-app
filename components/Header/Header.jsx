@@ -2,12 +2,19 @@ import styled from "styled-components";
 import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
-const HeaderStyle = styled.div`
+const HeaderStyleLight = styled.div`
   width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 3rem;
+  padding: 1rem;
+  background-color: var(--red);
+  color: var(--white);
+  font-family: var(--header-font);
+`;
+
+const HeaderStyleDark = styled(HeaderStyleLight)`
+  background-color: var(--black);
 `;
 
 const BasketContainer = styled.div`
@@ -24,13 +31,25 @@ const BasketNumber = styled.p`
 
 function Header({ theme, toggleTheme }) {
   return (
-    <HeaderStyle>
-      <DarkModeToggle theme={theme} toggleTheme={toggleTheme} />
-      <BasketContainer>
-        <ShoppingBasketIcon style={{ fontSize: "2rem" }} />
-        <BasketNumber>0</BasketNumber>
-      </BasketContainer>
-    </HeaderStyle>
+    <>
+      {theme === "light" ? (
+        <HeaderStyleLight>
+          <DarkModeToggle theme={theme} toggleTheme={toggleTheme} />
+          <BasketContainer>
+            <ShoppingBasketIcon style={{ fontSize: "2rem" }} />
+            <BasketNumber>0</BasketNumber>
+          </BasketContainer>
+        </HeaderStyleLight>
+      ) : (
+        <HeaderStyleDark>
+          <DarkModeToggle theme={theme} toggleTheme={toggleTheme} />
+          <BasketContainer>
+            <ShoppingBasketIcon style={{ fontSize: "2rem" }} />
+            <BasketNumber>0</BasketNumber>
+          </BasketContainer>
+        </HeaderStyleDark>
+      )}
+    </>
   );
 }
 
