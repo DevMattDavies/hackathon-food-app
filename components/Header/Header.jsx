@@ -3,7 +3,7 @@ import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 
 const HeaderStyleLight = styled.div`
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,17 +19,19 @@ const HeaderStyleDark = styled(HeaderStyleLight)`
 
 const BasketContainer = styled.div`
   display: flex;
-  /* align-items: center; */
-  /* gap: 1rem; */
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 `;
 
 const BasketNumber = styled.p`
   border-radius: 25%;
   border: 1px solid black;
   padding: 0.5rem;
+  font-size: 1.2rem;
 `;
 
-function Header({ theme, toggleTheme }) {
+function Header({ theme, toggleTheme, basketTotal }) {
   return (
     <>
       {theme === "light" ? (
@@ -37,7 +39,7 @@ function Header({ theme, toggleTheme }) {
           <DarkModeToggle theme={theme} toggleTheme={toggleTheme} />
           <BasketContainer>
             <ShoppingBasketIcon style={{ fontSize: "2rem" }} />
-            <BasketNumber>0</BasketNumber>
+            <BasketNumber>{basketTotal}</BasketNumber>
           </BasketContainer>
         </HeaderStyleLight>
       ) : (

@@ -8,12 +8,26 @@ const ModalLight = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: var(--highlight);
   z-index: 1000;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
 `;
 
 const ModalDark = styled(ModalLight)`
-  background-color: black;
+  /* background-color: black; */
+`;
+
+const IngredientsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  top: -100px;
 `;
 
 const Background = styled.div`
@@ -22,7 +36,7 @@ const Background = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: grey;
+  /* background-color: grey; */
 `;
 
 const IngredientsTitleLight = styled.h1`
@@ -31,16 +45,26 @@ const IngredientsTitleLight = styled.h1`
 `;
 
 const IngredientsTitleDark = styled(IngredientsTitleLight)`
-  color: white;
+  /* color: white; */
 `;
 
 const InfoTextLight = styled.p`
   color: black;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 `;
 
 const InfoTextDark = styled(InfoTextLight)`
-  color: white;
+  /* color: white; */
+`;
+
+const AddToBasketButton = styled.button`
+  width: 100%;
+  background-color: var(--red);
+  color: var(--white);
+  border-radius: 5px;
+  padding: 1rem;
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
 `;
 
 function ItemModal({
@@ -50,52 +74,45 @@ function ItemModal({
   setIngredientsInfo,
   setIsModalOpen,
   theme,
+  setBasketTotal,
+  basketTotal,
 }) {
   function modalCloseHandler() {
     setIngredientsInfo("");
     setNutritionInfo("");
     setIsModalOpen(false);
   }
+
+  function basketModalUpdater() {
+    setBasketTotal((prevBasketTotal) => prevBasketTotal + 1);
+  }
   return (
     <>
-      {ingredientsInfo && (
-        <Background onClick={modalCloseHandler}>
-          {theme === "light" ? (
-            <ModalLight>
-              <CloseIcon
-                onClick={modalCloseHandler}
-                style={{
-                  position: "absolute",
-                  top: "2rem",
-                  right: "2rem",
-                  color: "black",
-                }}
-              />
-              <IngredientsTitleLight>Ingredients</IngredientsTitleLight>
-              {ingredientsInfo.map((ingredient, key) => {
-                return (
-                  <InfoTextLight key={key}>{ingredient.name}</InfoTextLight>
-                );
-              })}
-            </ModalLight>
-          ) : (
-            <ModalDark>
-              <CloseIcon
-                onClick={modalCloseHandler}
-                style={{
-                  position: "absolute",
-                  top: "2rem",
-                  right: "2rem",
-                  color: "white",
-                }}
-              />
-              <IngredientsTitleDark>Ingredients</IngredientsTitleDark>
-              {ingredientsInfo.map((ingredient, key) => {
-                return <InfoTextDark key={key}>{ingredient.name}</InfoTextDark>;
-              })}
-            </ModalDark>
-          )}
-        </Background>
+      {ingredientsInfo && nutritionInfo && (
+        <ModalLight>
+          <CloseIcon
+            onClick={modalCloseHandler}
+            style={{
+              position: "absolute",
+              top: "2rem",
+              right: "2rem",
+              color: "black",
+            }}
+          />
+          <IngredientsTitleLight>Ingredients</IngredientsTitleLight>
+          <IngredientsContainer>
+            {ingredientsInfo.map((ingredient, key) => {
+              return <InfoTextLight key={key}>{ingredient.name}</InfoTextLight>;
+            })}
+          </IngredientsContainer>
+          <IngredientsTitleLight>Nutritional Info</IngredientsTitleLight>
+          <IngredientsContainer>
+            <InfoTextLight>Calories: {nutritionInfo.calories}cal</InfoTextLight>
+          </IngredientsContainer>
+          <AddToBasketButton onClick={basketModalUpdater}>
+            ADD TO BASKET
+          </AddToBasketButton>
+        </ModalLight>
       )}
     </>
   );

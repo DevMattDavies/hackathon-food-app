@@ -24,6 +24,14 @@ const ContainerLight = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2rem;
+  display: grid;
+  width: 60%;
+  margin: 5rem auto;
+
+  @media screen and (min-width: 480px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const ContainerDark = styled(ContainerLight)`
@@ -35,6 +43,7 @@ const FoodItemContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 `;
 
 const FoodItemLight = styled.p`
@@ -50,7 +59,7 @@ const FoodItemDark = styled(FoodItemLight)`
   color: white;
 `;
 
-function FoodMenu({ theme, toggleTheme }) {
+function FoodMenu({ theme, toggleTheme, setBasketTotal, basketTotal }) {
   const [nutritionInfo, setNutritionInfo] = useState();
   const [ingredientsInfo, setIngredientsInfo] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,7 +73,7 @@ function FoodMenu({ theme, toggleTheme }) {
   function getNutrition(id) {
     axios
       .get(
-        `https://api.spoonacular.com/recipes/${id}/nutritionWidget.json?apiKey=e0a2eb49e689414c8ae6872090dcc68b`
+        `https://api.spoonacular.com/recipes/${id}/nutritionWidget.json?apiKey=44ee633df0864820b12e9aa1a028271b`
       )
       .then(function (response) {
         setNutritionInfo(response.data);
@@ -74,15 +83,15 @@ function FoodMenu({ theme, toggleTheme }) {
   function getIngredients(id) {
     axios
       .get(
-        `https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=e0a2eb49e689414c8ae6872090dcc68b`
+        `https://api.spoonacular.com/recipes/${id}/ingredientWidget.json?apiKey=44ee633df0864820b12e9aa1a028271b`
       )
       .then(function (response) {
         setIngredientsInfo(response.data.ingredients);
       });
   }
 
-  //   console.log(nutritionInfo);
-  //   console.log(ingredientsInfo);
+  console.log(nutritionInfo);
+  // console.log(ingredientsInfo);
 
   return (
     <>
@@ -90,12 +99,14 @@ function FoodMenu({ theme, toggleTheme }) {
         <ContainerLight>
           {Object.values(menuItems).map((item, key) => {
             return (
-              <FoodItemContainer onClick={getFoodInfo} key={key} id={item.id}>
+              <FoodItemContainer key={key}>
                 <ImageStyle
                   src={pizzaImages[key]}
                   alt="pizza image"
                 ></ImageStyle>
-                <FoodItemLight>{item.title}</FoodItemLight>
+                <FoodItemLight onClick={getFoodInfo} id={item.id}>
+                  {item.title}
+                </FoodItemLight>
               </FoodItemContainer>
             );
           })}
@@ -104,12 +115,14 @@ function FoodMenu({ theme, toggleTheme }) {
         <ContainerDark>
           {Object.values(menuItems).map((item, key) => {
             return (
-              <FoodItemContainer onClick={getFoodInfo} key={key} id={item.id}>
+              <FoodItemContainer key={key}>
                 <ImageStyle
                   src={pizzaImages[key]}
                   alt="pizza image"
                 ></ImageStyle>
-                <FoodItemLight>{item.title}</FoodItemLight>
+                <FoodItemLight onClick={getFoodInfo} id={item.id}>
+                  {item.title}
+                </FoodItemLight>
               </FoodItemContainer>
             );
           })}
@@ -123,6 +136,8 @@ function FoodMenu({ theme, toggleTheme }) {
           setNutritionInfo={setNutritionInfo}
           setIngredientsInfo={setIngredientsInfo}
           theme={theme}
+          setBasketTotal={setBasketTotal}
+          basketTotal={basketTotal}
         />
       )}
     </>
