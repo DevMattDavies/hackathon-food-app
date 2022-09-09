@@ -1,14 +1,21 @@
-import Head from "next/head";
-import Image from "next/image";
+import { createContext, useState } from "react";
+import styled from "styled-components";
+import FoodMenu from "../components/FoodMenu/FoodMenu";
 
-import { menuItems } from "../data/menu-data";
+export const ThemeContext = createContext(null);
 
 export default function Home() {
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme((currentTheme) => (currentTheme === "light" ? "dark" : "light"));
+  };
+
   return (
     <>
-      {Object.values(menuItems).map((item) => {
-        return <p>{item.title}</p>;
-      })}
+      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <FoodMenu theme={theme} toggleTheme={toggleTheme} />
+      </ThemeContext.Provider>
     </>
   );
 }
